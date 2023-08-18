@@ -46,10 +46,16 @@ HLDLL_OBJS = \
 	$(HLDLL_OBJ_DIR)/doors.o \
 	$(HLDLL_OBJ_DIR)/effects.o \
 	$(HLDLL_OBJ_DIR)/egon.o \
+	$(HLDLL_OBJ_DIR)/env_follower.o \
+	$(HLDLL_OBJ_DIR)/env_spark_custom.o \
+	$(HLDLL_OBJ_DIR)/env_toggle_model.o \
 	$(HLDLL_OBJ_DIR)/explode.o \
 	$(HLDLL_OBJ_DIR)/flyingmonster.o \
 	$(HLDLL_OBJ_DIR)/func_break.o \
+	$(HLDLL_OBJ_DIR)/func_fader.o \
+	$(HLDLL_OBJ_DIR)/func_repairable.o \
 	$(HLDLL_OBJ_DIR)/func_tank.o \
+	$(HLDLL_OBJ_DIR)/func_trampoline.o \
 	$(HLDLL_OBJ_DIR)/game.o \
 	$(HLDLL_OBJ_DIR)/gamerules.o \
 	$(HLDLL_OBJ_DIR)/gargantua.o \
@@ -113,6 +119,8 @@ HLDLL_OBJS = \
 	$(HLDLL_OBJ_DIR)/tempmonster.o \
 	$(HLDLL_OBJ_DIR)/tentacle.o \
 	$(HLDLL_OBJ_DIR)/triggers.o \
+	$(HLDLL_OBJ_DIR)/trigger_print.o \
+	$(HLDLL_OBJ_DIR)/trigger_sethealth.o \
 	$(HLDLL_OBJ_DIR)/tripmine.o \
 	$(HLDLL_OBJ_DIR)/turret.o \
 	$(HLDLL_OBJ_DIR)/UserMessages.o \
