@@ -21,11 +21,11 @@ void CFuncRepairable::Spawn()
     pev->health = 100;
 
     pev->solid = SOLID_BSP;
-    pev->movetype = MOVETYPE_PUSHSTEP; // MOVETYPE_NONE doesn't work
+    pev->movetype = MOVETYPE_PUSH; // MOVETYPE_NONE doesn't work
     SET_MODEL( edict(), STRING( pev->model ) );
 
-    // this'll be necessary if initial health can be configured
-    pev->nextthink = gpGlobals->time + 1.5f;
+    // start thinking
+    Think();
 }
 
 void CFuncRepairable::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
@@ -63,5 +63,5 @@ void CFuncRepairable::Think()
         UTIL_Sparks( pev->origin );
     }
 
-    pev->nextthink += gpGlobals->time + (pev->health / 100.0f) + 0.05f; // max. frequency is 20Hz!
+    pev->nextthink = pev->ltime + (pev->health / 100.0f) + 0.05f; // max. frequency is 20Hz!
 }

@@ -7,6 +7,7 @@ class CFuncTrampoline : public CBaseEntity
 {
 public:
     void Spawn() override;
+    void Precache() override;
     void Touch( CBaseEntity* pOther ) override;
 };
 
@@ -17,6 +18,12 @@ void CFuncTrampoline::Spawn()
     pev->movetype = MOVETYPE_NONE;
     pev->solid = SOLID_TRIGGER; // this entity won't be solid, it triggers an upwards push
     SET_MODEL( edict(), STRING( pev->model) );
+    
+    Precache();
+}
+
+void CFuncTrampoline::Precache()
+{
     PRECACHE_SOUND("vox/launch.wav");
 }
 
