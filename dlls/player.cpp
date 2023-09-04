@@ -116,6 +116,8 @@ TYPEDESCRIPTION CBasePlayer::m_playerSaveData[] =
 		//DEFINE_FIELD(CBasePlayer, m_SndLast, FIELD_EHANDLE),
 		//DEFINE_FIELD(CBasePlayer, m_flSndRange, FIELD_FLOAT),
 
+		DEFINE_FIELD(CBasePlayer, m_flStartCharge, FIELD_TIME),
+
 		//DEFINE_FIELD( CBasePlayer, m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 		//DEFINE_FIELD( CBasePlayer, m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
 		//DEFINE_FIELD( CBasePlayer, m_flStopExtraSoundTime, FIELD_TIME ),
@@ -3063,6 +3065,56 @@ void CBasePlayer::SelectItem(const char* pstr)
 			while (pItem)
 			{
 				if (FClassnameIs(pItem->pev, pstr))
+					break;
+				pItem = pItem->m_pNext;
+			}
+		}
+
+		if (pItem)
+			break;
+	}
+
+	if (!pItem)
+		return;
+
+
+	if (pItem == m_pActiveItem)
+		return;
+
+	ResetAutoaim();
+
+	// FIX, this needs to queue them up and delay
+	if (m_pActiveItem)
+		m_pActiveItem->Holster();
+
+	m_pLastItem = m_pActiveItem;
+	m_pActiveItem = pItem;
+
+	if (m_pActiveItem)
+	{
+		m_pActiveItem->m_ForceSendAnimations = true;
+		m_pActiveItem->Deploy();
+		m_pActiveItem->m_ForceSendAnimations = false;
+		m_pActiveItem->UpdateItemInfo();
+	}
+}
+
+void CBasePlayer::SelectItem(int iId)
+{
+	if (iId <= WEAPON_NONE)
+		return;
+
+	CBasePlayerItem* pItem = NULL;
+
+	for (int i = 0; i < MAX_ITEM_TYPES; i++)
+	{
+		if (m_rgpPlayerItems[i])
+		{
+			pItem = m_rgpPlayerItems[i];
+
+			while (pItem)
+			{
+				if (pItem->m_iId == iId)
 					break;
 				pItem = pItem->m_pNext;
 			}
