@@ -1,6 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "explode.h"
 
 class CFuncExploder : public CBaseEntity
 {
@@ -13,7 +14,7 @@ public:
     bool Restore(CRestore& restore) override;
     static TYPEDESCRIPTION m_SaveData[];
 private:
-    string_t target;
+    string_t target = 0;
 };
 
 LINK_ENTITY_TO_CLASS(func_exploder, CFuncExploder);
@@ -32,7 +33,8 @@ void CFuncExploder::Spawn()
 
 bool CFuncExploder::KeyValue(KeyValueData* pkvd)
 {
-    if (FStrEq(pkvd->szKeyName, "target"))
+    ALERT(at_console, "KEYVALUE WAS CALLED!!\n");
+    if (FStrEq(pkvd->szKeyName, "target_explode"))
     {
         target = ALLOC_STRING(pkvd->szValue);
         return true;
@@ -42,5 +44,17 @@ bool CFuncExploder::KeyValue(KeyValueData* pkvd)
 
 void CFuncExploder::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
 {
-
+    /*
+     * NOTE: you can register all the entities in advance in an array and save them too
+     *       eg. in buttons.cpp for CMultiSource 
+     * TODO: do that instead of the stuff below!
+    */ 
+    CBaseEntity* pEntity = nullptr;
+    while (pEntity = UTIL_FindEntityByTargetname(pEntity, STRING(target)))
+    {
+        Vector position = pEntity->Center();
+        Vector angles = pEntity->pev->angles;
+        UTIL_Remove(pEntity);
+        ExplosionCreate(position, angles, edict(), 200, true);
+    }
 }

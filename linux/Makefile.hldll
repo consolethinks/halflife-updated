@@ -26,6 +26,7 @@ HLDLL_OBJS = \
 	$(HLDLL_OBJ_DIR)/aflock.o \
 	$(HLDLL_OBJ_DIR)/agrunt.o \
 	$(HLDLL_OBJ_DIR)/airtank.o \
+	$(HLDLL_OBJ_DIR)/ambient_simple.o \
 	$(HLDLL_OBJ_DIR)/animating.o \
 	$(HLDLL_OBJ_DIR)/animation.o \
 	$(HLDLL_OBJ_DIR)/apache.o \
@@ -52,6 +53,7 @@ HLDLL_OBJS = \
 	$(HLDLL_OBJ_DIR)/explode.o \
 	$(HLDLL_OBJ_DIR)/flyingmonster.o \
 	$(HLDLL_OBJ_DIR)/func_break.o \
+	$(HLDLL_OBJ_DIR)/func_exploder.o \
 	$(HLDLL_OBJ_DIR)/func_fader.o \
 	$(HLDLL_OBJ_DIR)/func_repairable.o \
 	$(HLDLL_OBJ_DIR)/func_tank.o \
